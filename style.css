@@ -1,3 +1,21 @@
+/** {
+	outline: 1px solid red;
+}*/
+:root {
+  --bg-main: #2c2a28;
+  --bg-component: #252925;
+
+  --yellow: #f5dc61;
+  --coral: #e0705c;
+
+  --text-white: #ffffff;
+  --text-gray: #cccccc;
+  --text-dark: #171a17;
+
+  --hover: rgba(255, 255, 255, 0.1);
+  --border: rgba(255, 255, 255, 0.15);
+}
+
 .material-symbols-outlined {
   font-variation-settings:
   'FILL' 1,

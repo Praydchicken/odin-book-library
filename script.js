@@ -1,1 +1,1 @@
-console.console.log('Hello world');
+const bookLibrary = [];

@@ -14,6 +14,7 @@
 
   --hover: rgba(255, 255, 255, 0.1);
   --border: rgba(255, 255, 255, 0.15);
+  --overlay-dark: rgba(0, 0, 0, 0.5);
 }
 
 .material-symbols-outlined {
@@ -47,7 +48,66 @@ header {
 	color: var(--yellow);
 }
 
-button {
+.content {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: 8px;
+	margin-block-start: 24px;
+}
+
+.card {
+	background-color: var(--bg-component);
+}
+
+.modal {
+	position: fixed;
+	top: 45%;
+	left: 50%;
+	transform: translate(-50%,  -50%);
+	inline-size: 25%;
+	border: 0;
+	border-radius: 8px;
+	z-index: 9999;
+	background-color: var(--bg-component);
+}
+
+.modal::backdrop {
+	background-color: var(--overlay-dark);
+}
+
+.form {
+	display: grid;
+	padding: 24px 48px;
+}
+
+.form__heading {
+	font-size: 2rem;
+	font-weight: 700;
+	color: var(--yellow);
+}
+
+.form__label {
+	font-weight: 500;
+	letter-spacing: 0.15rem;
+	color: var(--yellow);
+}
+
+.form__inputfield {
+	padding: 8px 12px;
+	margin-block: 8px 24px;
+	color: var(--text-white);
+	border-radius: 6px;
+	outline: 1px solid var(--yellow);
+	background-color: var(--bg-main);
+}
+
+.form__buttons {
+	display: flex;
+	gap: 16px;
+	justify-self: end;
+}
+
+.button {
 	display: flex;
 	align-items: center;
 	border-radius: 12px;
@@ -55,6 +115,15 @@ button {
 	padding: 8px;
 }
 
+.button:hover {
+	color: var(--text-white);
+	background-color: var(--hover);
+}
+
 .button__primary {
 	background-color: var(--yellow);
+}
+
+.button__secondary {
+	background-color: var(--coral);
 }

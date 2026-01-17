@@ -12,10 +12,29 @@
 <body>
 	<header class="header">
 		<h1 class="header__title">Odin Books</h1>
-		<button class="button button__primary">
+		<button class="button button__primary js-add-book">
 			<span class="material-symbols-outlined">add</span>
 			New Book
 		</button>
 	</header>
+	<dialog class="modal js-modal" formm>
+		<form class="form js-form" action="#" method="dialog">
+			<h2 class="form__heading">Add New Book</h2>
+			<label class="form__label" for="title">Title</label>
+			<input class="form__inputfield" type="text" name="title" id="title" required>
+			<label class="form__label" for="author">Author</label>
+			<input class="form__inputfield" type="text" name="author" id="author" required>
+			<label class="form__label" for="pages">Pages</label>
+			<input class="form__inputfield" type="number" name="pages" id="pages" required>
+			<label class="form__label" for="read-status">
+				<input class="form__checkbox" type="checkbox" name="read-status" id="read-status">
+				Already read?
+			</label>
+			<div class="form__buttons js-form-btn">
+				<button class="button button__secondary js-cancel" type="button">Cancel</button>
+				<button class="button button__primary js-confirm" type="submit">Confirm</button>
+			</div>
+		</form>
+	</dialog>
 </body>
 </html>

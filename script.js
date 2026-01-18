@@ -1,30 +1,54 @@
-const modalElement = document.querySelector('.js-modal');
-const formElement = document.querySelector('.js-form');
-const titleInputElement = document.querySelector('#title');
-const authorInputElement = document.querySelector('#author');
-const pagesInputElement = document.querySelector('#pages');
-const isReadCheckboxElement = document.querySelector('#read-status');
-const addBookButtonElement = document.querySelector('.js-add-book');
-const cancelButtonElement = document.querySelector('.js-cancel');
+const modal = document.querySelector('.js-modal');
+const form = document.querySelector('.js-form');
+const titleInput = document.querySelector('#title');
+const authorInput = document.querySelector('#author');
+const pagesInput = document.querySelector('#pages');
+const isReadCheckbox = document.querySelector('#read-status');
+const addBookButton = document.querySelector('.js-add-book');
+const cancelButton = document.querySelector('.js-cancel');
 
 const bookLibrary = [];
 
-addBookButtonElement.addEventListener('click', () => {
-	modalElement.showModal();
-});
-
-modalElement.addEventListener('click', (event) => {
-	if (event.target === modalElement || event.target === cancelButtonElement) {
-		modalElement.close();
+const getBookData = () => {
+	return {
+		title: titleInput.value,
+		author: authorInput.value,
+		pages: Number(pagesInput.value),
+		isRead: isReadCheckbox.checked
 	}
-});
+};
 
-formElement.addEventListener('submit', (event) => {
+const openModal = () => {
+	modal.showModal();
+};
+
+const closeModal = () => {
+	form.reset();
+	modal.close();
+};
+
+const handleModalOutsideClick = (event) => {
+	if (event.target === modal) {
+		modal.close();
+	}
+};
+
+const handleFormSubmit = (event) => {
 	event.preventDefault();
-	addBook();
-});
 
-function Book(title, author, pages, isRead) {
+	const bookData = getBookData();
+	addBook(bookData);
+
+	form.reset();
+	modal.close();
+};
+
+addBookButton.addEventListener('click', openModal);
+cancelButton.addEventListener('click', closeModal);
+modal.addEventListener('click', handleModalOutsideClick);
+form.addEventListener('submit', handleFormSubmit);
+
+function Book({title, author, pages, isRead}) {
 	this.id = crypto.randomUUID();
 	this.title = title;
 	this.author = author;
@@ -37,14 +61,8 @@ Book.prototype.toggleIsRead = function () {
 	console.log(this.isRead);
 }
 
-function addBook() {
-	const title = titleInputElement.value;
-	const author = authorInputElement.value;
-	const pages = Number(pagesInputElement.value);
-	const isRead = isReadCheckboxElement.checked ? true : false;
-
-	const book = new Book(title, author, pages, isRead);
+function addBook(bookData) {
+	const book = new Book(book);
 	bookLibrary.push(book);
-	formElement.reset();
-	modalElement.close();
+}
 }

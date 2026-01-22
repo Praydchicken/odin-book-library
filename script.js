@@ -1,5 +1,6 @@
 const modal = document.querySelector('.js-modal');
 const form = document.querySelector('.js-form');
+const bookContainer = document.querySelector('.js-books');
 const titleInput = document.querySelector('#title');
 const authorInput = document.querySelector('#author');
 const pagesInput = document.querySelector('#pages');
@@ -38,6 +39,7 @@ const handleFormSubmit = (event) => {
 
 	const bookData = getBookData();
 	addBook(bookData);
+	updateDisplay();
 
 	form.reset();
 	modal.close();
@@ -64,8 +66,6 @@ Book.prototype.toggleIsRead = function () {
 function addBook(bookData) {
 	const book = new Book(bookData);
 	bookLibrary.push(book);
-
-	updateDisplay();
 }
 
 function removeBook(id) {

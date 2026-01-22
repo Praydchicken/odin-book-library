@@ -12,8 +12,11 @@
   --text-gray: #cccccc;
   --text-dark: #171a17;
 
+  --info-success: #6fb87f;
+
   --hover: rgba(255, 255, 255, 0.1);
   --border: rgba(255, 255, 255, 0.15);
+  --box-shadow : box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   --overlay-dark: rgba(0, 0, 0, 0.5);
 }
 
@@ -105,6 +108,50 @@ header {
 	display: flex;
 	gap: 16px;
 	justify-self: end;
+}
+
+.book {
+	display: grid;
+	gap: 16px;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: 1fr;
+}
+
+.book__card {
+	position: relative;
+	padding: 24px;
+	background-color: var(--bg-component);
+}
+
+.book__title {
+	color: var(--yellow);
+	font-size: 1.5rem;
+	font-weight: 500;
+}
+
+.book__author {
+	color: var(--text-gray);
+	font-style: italic;
+	margin-block-end: 12px;
+}
+
+.book__pages {
+	color: var(--text-white);
+}
+
+.book__actions {
+	display: flex;
+	gap: 8px;
+	justify-content: flex-end;
+}
+
+.book__badge {
+	position: absolute;
+	bottom: 12px;
+	display: flex;
+	gap: 8px;
+	font-style: italic;
+	color: var(--info-success);
 }
 
 .button {

@@ -45,6 +45,23 @@ const handleFormSubmit = (event) => {
 	modal.close();
 };
 
+const handleCardActions = (event) => {
+	const card = event.target.closest('.book__card');
+
+	if (!card) {
+		return;
+	}
+
+	if (event.target.closest('.js-status')) {
+		toggleReadStatus(card);
+	} else if (event.target.closest('.js-remove')) {
+		removeBook(card);
+	}
+
+	updateDisplay();
+};
+
+bookContainer.addEventListener('click', handleCardActions);
 addBookButton.addEventListener('click', openModal);
 cancelButton.addEventListener('click', closeModal);
 modal.addEventListener('click', handleModalOutsideClick);
@@ -68,14 +85,26 @@ function addBook(bookData) {
 	bookLibrary.push(book);
 }
 
-function removeBook(id) {
-	const index = bookLibrary.findIndex((book) => book.id === id);
+function removeBook(card) {
+	const id = card.dataset.bookId;
+	const index = bookLibrary.findIndex(book => book.id === id);
 
 	if (index === -1) {
 		return;
 	}
 
 	bookLibrary.splice(index, 1);
+}
+
+function toggleReadStatus(card) {
+	const id = card.dataset.bookId;
+	const book = bookLibrary.find(book => book.id === id);
+
+	if (!book) {
+		return;
+	}
+
+	book.toggleIsRead();
 }
 
 
@@ -112,8 +141,8 @@ function createBookCard(book) {
 
 	const bookActions = createElement('div', 'book__actions');
 	const toggleReadText = book.isRead ? 'Mark as Unread' : 'Mark as Read';
-	const toggleReadStatus = createElement('button','button button__primary', toggleReadText);
-	const removeBook = createElement('button', 'button button__secondary', 'Remove');
+	const toggleReadStatus = createElement('button','button button__primary js-status', toggleReadText);
+	const removeBook = createElement('button', 'button button__secondary js-remove', 'Remove');
 
 
 	bookActions.append(toggleReadStatus, removeBook);
@@ -123,8 +152,6 @@ function createBookCard(book) {
 }
 
 function updateDisplay() {
-	bookLibrary.forEach((book) => {
-		const card = createBookCard(book);
-		bookContainer.append(card);
-	});
+	const cards = bookLibrary.map((book) => createBookCard(book));
+	bookContainer.replaceChildren(...cards);
 }

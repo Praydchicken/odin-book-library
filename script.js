@@ -64,52 +64,59 @@ Book.prototype.toggleIsRead = function () {
 function addBook(bookData) {
 	const book = new Book(bookData);
 	bookLibrary.push(book);
+
+	updateDisplay();
+}
+
+function removeBook(id) {
+	const index = bookLibrary.findIndex((book) => book.id === id);
+
+	if (index === -1) {
+		return;
+	}
+
+	bookLibrary.splice(index, 1);
+}
+
+
+function createElement(tag, className, textContent = '') {
+	const element = document.createElement(tag);
+
+	if (className) {
+		element.className = className;
+	}
+
+	if (textContent) {
+		element.textContent = textContent;
+	}
+
+	return element;
 }
 
 function createBookCard(book) {
-	const card = document.createElement('div');
-	card.className = 'book__card';
+	const card = createElement('div', 'book__card');
 	card.dataset.bookId = book.id;
 
- if (book.isRead) {
-    const badge = document.createElement('div');
-    badge.className = 'book__badge';
+	if (book.isRead) {
+		const badge = createElement('div', 'book__badge');
+		const icon = createElement('span', 'material-symbols-outlined', 'done_all');
+		const text = createElement('p', 'Completed');
 
-    const icon = document.createElement('span');
-    icon.className = 'material-symbols-outlined';
-    icon.textContent = 'done_all';
+		badge.append(icon, text);
+		card.append(badge);
+	}
 
-    const text = document.createElement('p');
-    text.textContent = 'Completed';
+	const bookTitle = createElement('h3', 'book__title', book.title);
+	const bookAuthor = createElement('p', 'book__author', `by  ${book.author}`);
+	const bookPages = createElement('p', 'book__pages', `${book.pages} pages`);
 
-    badge.append(icon, text);
-    card.append(badge);
-  }
+	const bookActions = createElement('div', 'book__actions');
+	const toggleReadText = book.isRead ? 'Mark as Unread' : 'Mark as Read';
+	const toggleReadStatus = createElement('button','button button__primary', toggleReadText);
+	const removeBook = createElement('button', 'button button__secondary', 'Remove');
 
-	const bookTitle = document.createElement('h3');
-	bookTitle.className = 'book__title';
-	bookTitle.textContent = book.title;
 
-	const bookAuthor = document.createElement('p');
-	bookAuthor.className = 'book__author';
-	bookAuthor.textContent = `by ${book.author}`;
-
-	const bookPages = document.createElement('p');
-	bookPages.className = 'book__pages'
-	bookPages.textContent = `${book.pages} pages`;
-
-	const bookActions = document.createElement('div');
-	bookActions.className = 'book__actions';
-
-	const toggleReadButton = document.createElement('button');
-	toggleReadButton.classList.add('button', 'button__primary');
-	toggleReadButton.textContent = book.isRead ? 'Not Read' : 'Read';
-
-	const removeBookButton = document.createElement('button');
-	removeBookButton.classList.add('button', 'button__secondary');
-	removeBookButton.textContent = 'Remove';
-
-	bookActions.append(toggleReadButton, removeBookButton);
+	bookActions.append(toggleReadStatus, removeBook);
 	card.append(bookTitle, bookAuthor, bookPages, bookActions);
 
 	return card;

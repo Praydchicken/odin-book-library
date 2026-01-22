@@ -100,7 +100,7 @@ function createBookCard(book) {
 	if (book.isRead) {
 		const badge = createElement('div', 'book__badge');
 		const icon = createElement('span', 'material-symbols-outlined', 'done_all');
-		const text = createElement('p', 'Completed');
+		const text = createElement('p','','Completed');
 
 		badge.append(icon, text);
 		card.append(badge);

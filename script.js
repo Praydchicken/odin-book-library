@@ -62,7 +62,7 @@ Book.prototype.toggleIsRead = function () {
 }
 
 function addBook(bookData) {
-	const book = new Book(book);
+	const book = new Book(bookData);
 	bookLibrary.push(book);
 }
 }
